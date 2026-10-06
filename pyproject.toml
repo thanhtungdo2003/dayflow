@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "personal-work-agent"
+version = "0.1.0"
+description = "Local-first Windows work tracker with an encrypted vault and evidence-based daily reports"
+requires-python = ">=3.11"
+dependencies = [
+    "PySide6>=6.6,<7",
+    "cryptography>=42",
+    "argon2-cffi>=23.1",
+]
+
+[project.optional-dependencies]
+browser = ["uiautomation>=2.0.18"]   # optional browser URL capture (off by default)
+ai = ["anthropic>=0.40"]             # optional Claude provider (off by default)
+dev = ["pytest>=8", "pyinstaller>=6.5"]
+
+[project.scripts]
+workagent = "workagent.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+workagent = ["web/static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
